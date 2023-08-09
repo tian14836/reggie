@@ -6,12 +6,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Slf4j
 @SpringBootApplication
 @EnableTransactionManagement
 @ServletComponentScan
 @EnableCaching
+@EnableSwagger2
 public class TakeOutApplication {
     public static void main(String[] args) {
         log.info("项目启动了");

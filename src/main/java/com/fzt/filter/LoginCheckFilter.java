@@ -33,7 +33,12 @@ public class LoginCheckFilter implements Filter {
                 "/front/**",
                 "/common/**",
                 "/user/sendMsg",
-                "/user/login"
+                "/user/login",
+                "/swagger-ui.html",
+                "/swagger-resources/**",
+                "/webjars/**",
+                "/v2/api-docs/**",
+                "/swagger-ui.html/**"
         };
 
         if(request.getSession().getAttribute("employee")!=null){
