@@ -1,10 +1,13 @@
 package com.fzt.config;
 
 import com.fzt.common.JacksonObjectMapper;
+import com.fzt.interceptor.LoginCheckHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -13,6 +16,8 @@ import java.util.List;
 @Configuration
 @Slf4j
 public class WebMvcConfig extends WebMvcConfigurationSupport {
+    @Autowired
+    private LoginCheckHandler loginCheckHandler;
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/backend/**").addResourceLocations("classpath:/backend/");
@@ -36,5 +41,24 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         messageConverter.setObjectMapper(new JacksonObjectMapper());
         //将上面的消息转换器对象追加到mvc框架的转换器集合中
         converters.add(0,messageConverter);
+    }
+
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        String [] url=new String[]{
+                "/employee/login",
+                "/employee/logout",
+                "/backend/**",
+                "/front/**",
+                "/common/**",
+                "/user/sendMsg",
+                "/user/login",
+                "/swagger-ui.html",
+                "/swagger-resources/**",
+                "/webjars/**",
+                "/v2/api-docs/**",
+                "/swagger-ui.html/**"
+        };
+        registry.addInterceptor(loginCheckHandler).addPathPatterns("/**").excludePathPatterns(url);
     }
 }

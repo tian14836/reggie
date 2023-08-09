@@ -11,7 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Slf4j
 @SpringBootApplication
 @EnableTransactionManagement
-@ServletComponentScan
+//@ServletComponentScan
 @EnableCaching
 @EnableSwagger2
 public class TakeOutApplication {
